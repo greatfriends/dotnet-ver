@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <ToolCommandName>dotnet-ver</ToolCommandName>
+    <PackAsTool>True</PackAsTool>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Version>0.1.1</Version>
+    <FileVersion>0.1.1</FileVersion>
+    <AssemblyVersion>0.1.1</AssemblyVersion>
+    <PackageVersion>0.1.1</PackageVersion>
+    <InformationVersion>0.1.1</InformationVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="semver" Version="2.0.4" />
+    <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="2.2.3" />
+  </ItemGroup>
+</Project>
