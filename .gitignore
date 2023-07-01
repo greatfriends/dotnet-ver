@@ -2,3 +2,5 @@ obj/
 bin/
 .vs/
 .vs-code/
+nupkg/
+.DS_Store
