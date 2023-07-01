@@ -45,12 +45,13 @@ Examples:
             string currentDirectory = StartDirectory ?? Directory.GetCurrentDirectory();
             var projectFiles = Directory.EnumerateFileSystemEntries(currentDirectory, "*.??proj", SearchOption.AllDirectories);
 
+            var lastVersion = "";
             foreach (var projectFile in projectFiles)
             {
                 var document = XDocument.Load(projectFile);
                 XElement projectNode;
 
-                Console.WriteLine(projectFile);
+                WriteOut($"{projectFile}\n");
 
                 try
                 {
@@ -58,16 +59,14 @@ Examples:
                 }
                 catch (Exception)
                 {
-                    Console.WriteLine("  (Skipped. Not a .NET core project.)");
-                    Console.WriteLine();
+                    WriteOut("  (Skipped. Not a .NET core project.)\n");
                     continue;
                 }
 
                 var sdk = projectNode.Attribute("Sdk");
                 if (sdk == null)
                 {
-                    Console.WriteLine("  (Skipped. Not a .NET core project.)");
-                    Console.WriteLine();
+                    WriteOut("  (Skipped. Not a .NET core project.)\n\n");
                     continue;
                 }
 
@@ -79,12 +78,19 @@ Examples:
 
                 File.WriteAllText(projectFile, document.ToString());
 
-                if (Plain) {
-                    Console.WriteLine(v);
-                }
+                lastVersion = v;
+                if (!Plain) Console.WriteLine();
             }
 
+            if (Plain)
+                Console.Write(lastVersion);
+
             return 0;
+
+            void WriteOut(string text)
+            {
+                if (!Plain) Console.Write(text);
+            }
         }
 
         private static (string oldVersion, string newVersion) SetVersion(XElement projectNode, string elementName, string value, bool isPlain)
@@ -114,8 +120,7 @@ Examples:
 
             versionNode.SetValue(value);
 
-            if (!isPlain)
-                Console.WriteLine($"  Set {elementName,-20} from {oldVersion} --> {value}");
+            if (!isPlain) Console.WriteLine($"  Set {elementName,-20} from {oldVersion} --> {value}");
 
             return (oldVersion, value);
         }

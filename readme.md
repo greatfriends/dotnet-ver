@@ -1,10 +1,19 @@
-### dotnet-ver
-.net core project version tool
+## dotnet-ver
+.NET Core Project Version Tool
 
-#### How to install
+## How to install
 ```
-dotnet tool install dotnet-ver --global
+% dotnet tool install dotnet-ver --global
 ```
 
-#### How to use
-![image](https://user-images.githubusercontent.com/344784/43989423-e8aec76e-9d73-11e8-9de2-f1643b03cf00.png)
+## How to use
+
+![Help screen](<help-screen.png>)
+
+## How to update to nuget.org
+
+```
+% dotnet pack --configuration Release --output ./nupkg
+% dotnet nuget push ./nupkg/*.nupkg --api-key $NUGET_API_KEY --source https://api.nuget.org/v3/index.json
+```
+Assume that we saved the nuget API Key in the `NUGET_API_KEY` environment variable.
